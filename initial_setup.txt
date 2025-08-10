@@ -1,0 +1,2 @@
+Set up a virtual env and also add a .env file to store the API key
+ and add that to a gitignore

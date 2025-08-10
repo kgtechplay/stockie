@@ -1,46 +1,22 @@
-import json
-import pandas as pd
+from supabase_connect import supabase, supabase_admin, supabase_anon
+from import_stock import fetch_stock_data, save_stock_data
 
-def convert_json_to_csv(json_file_path, csv_file_path):
-    """
-    Convert company_tickers_exchange.json to CSV format
+def get_ticker(company_name):
+    ticker = []
+    search_name = "%" + company_name + "%"
+    print(search_name)
+    value = supabase_anon.table("Company_ticker_all").select("*").eq("name", company_name).execute()
     
-    Args:
-        json_file_path (str): Path to the JSON file
-        csv_file_path (str): Path for the output CSV file
-    """
-    try:
-        # Read the JSON file
-        with open(json_file_path, 'r') as file:
-            data = json.load(file)
-        
-        # Extract fields and data
-        fields = data.get('fields', [])
-        records = data.get('data', [])
-        
-        # Create DataFrame
-        df = pd.DataFrame(records, columns=fields)
-        
-        # Save to CSV
-        df.to_csv(csv_file_path, index=False)
-        
-        print(f"Successfully converted {json_file_path} to {csv_file_path}")
-        print(f"Total records: {len(df)}")
-        print(f"Columns: {list(df.columns)}")
-        
-        # Display first few rows
-        print("\nFirst 5 rows:")
-        print(df.head())
-        
-        return df
-        
-    except Exception as e:
-        print(f"Error converting file: {e}")
-        return None
+    for row in value.data:
+        ticker.append([row['cik'],row['ticker'],row['exchange'],row['name']])
+    #print(ticker)
+   
+    return ticker
 
 if __name__ == "__main__":
-    # Convert the JSON file to CSV
-    json_file = "company_tickers_exchange.json"
-    csv_file = "company_tickers_exchange.csv"
-    
-    df = convert_json_to_csv(json_file, csv_file)
+    A=get_ticker("ADVANCED MICRO DEVICES INC")
+    temp=fetch_stock_data(A[0][1],"compact")
+    save_stock_data(A[0][1], temp)
+    print(A)
+    print(type(A))
+   
