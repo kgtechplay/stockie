@@ -75,7 +75,7 @@ if not env_check['all_set']:
 # Main page content
 def main():
     # Display banner if it exists
-    banner_path = "assets/images/Stockie - Banner.png"
+    banner_path = "assets/images/stockie-banner.png"
     if os.path.exists(banner_path):
         st.image(banner_path, use_container_width=True)
     else:
