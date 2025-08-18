@@ -1,0 +1,35 @@
+[global]
+# Streamlit configuration for Stockie app
+
+# Development settings
+developmentMode = false
+
+[server]
+# Server settings
+port = 8501
+enableCORS = false
+enableXsrfProtection = true
+maxUploadSize = 200
+enableWebsocketCompression = true
+
+[browser]
+# Browser settings
+gatherUsageStats = false
+
+[theme]
+# Theme settings (optional - users can override)
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
+
+[client]
+# Client settings
+toolbarMode = "auto"
+
+[logger]
+# Logging settings
+level = "info"
+messageFormat = "%(asctime)s %(levelname)s: %(message)s"
+

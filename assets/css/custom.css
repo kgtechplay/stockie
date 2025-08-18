@@ -1,0 +1,159 @@
+/* Custom CSS for Stockie Streamlit App */
+
+/* Main container styling */
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 1200px;
+}
+
+/* Metric cards styling */
+.stMetric {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 10px;
+    padding: 1rem;
+    border-left: 4px solid #1f77b4;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.stMetric:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Button styling */
+.stButton > button {
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stButton > button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Sidebar styling */
+.css-1d391kg {
+    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.css-1d391kg .stSelectbox label {
+    color: white;
+}
+
+/* Chart container */
+.stPlotlyChart {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: white;
+    padding: 1rem;
+}
+
+/* Data table styling */
+.stDataFrame {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Alert styling */
+.stAlert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Tab styling */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 2px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 10px 10px 0 0;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.stTabs [aria-selected="true"] {
+    background: #1f77b4;
+    color: white;
+}
+
+/* File uploader styling */
+.stFileUploader {
+    border: 2px dashed #1f77b4;
+    border-radius: 10px;
+    padding: 2rem;
+    background: #f8f9ff;
+    text-align: center;
+}
+
+/* Progress bar styling */
+.stProgress .css-zt5igj {
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+}
+
+/* Success message styling */
+.stSuccess {
+    background: linear-gradient(90deg, #56ab2f 0%, #a8e6cf 100%);
+    color: white;
+    border-radius: 10px;
+}
+
+/* Error message styling */
+.stError {
+    background: linear-gradient(90deg, #ff416c 0%, #ff4b2b 100%);
+    color: white;
+    border-radius: 10px;
+}
+
+/* Info message styling */
+.stInfo {
+    background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border-radius: 10px;
+}
+
+/* Warning message styling */
+.stWarning {
+    background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+    border-radius: 10px;
+}
+
+/* Custom stock card */
+.stock-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-left: 4px solid #1f77b4;
+}
+
+/* Loading spinner */
+.stSpinner {
+    border-radius: 50%;
+}
+
+/* Footer styling */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+}
+
