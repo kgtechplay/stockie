@@ -58,6 +58,7 @@ Stockie/
 
 ### 🔍 Stock Search
 - Company name and ticker search
+- Fuzzy matching with dropdown suggestions
 - Real-time stock information
 - Detailed stock analysis
 - Popular stocks showcase
