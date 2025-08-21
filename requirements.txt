@@ -5,3 +5,5 @@ supabase
 psycopg2-binary
 streamlit
 plotly
+beautifulsoup4
+openai

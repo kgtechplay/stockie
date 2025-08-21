@@ -60,6 +60,53 @@ def get_ticker_fuzzy(company_name):
     return ticker
 
 
+
+def get_ticker_fuzzy_streamlit(company_name):
+    """
+    Fuzzy search for company tickers
+    Returns top 5 matches based on similarity
+    """
+    if len(company_name) < 3:
+        return []
+    
+    ticker = []
+    n = 5
+    search_name = "%" + company_name + "%"
+    
+    try:
+        # Fuzzy search using case-insensitive partial match
+        value = supabase_anon.table("Company_ticker_all").select("*").ilike("name", search_name).execute()
+        
+        if not value.data:
+            return []
+        
+        # Sort results by string similarity
+        sorted_matches = sorted(
+            value.data,
+            key=lambda row: similarity(company_name, row["name"]),
+            reverse=True
+        )
+        
+        # Get top n matches
+        top_matches = sorted_matches[:n]
+        
+        for row in top_matches:
+            ticker.append({
+                'cik': row['cik'],
+                'ticker': row['ticker'], 
+                'exchange': row['exchange'],
+                'name': row['name'],
+                'display': f"{row['ticker']} - {row['name']} ({row['exchange']})"
+            })
+        
+        return ticker
+        
+    except Exception as e:
+        print(f"Search error: {e}")
+        return []
+
+
+
 if __name__ == "__main__":
     A = get_ticker("NVIDIA CORP")
     print(A)

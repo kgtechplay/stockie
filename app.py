@@ -38,11 +38,11 @@ def main() -> None:
     # Banner at the top
     banner_path = os.path.join("assets", "images", "stockie-banner.png")
     if os.path.exists(banner_path):
-        st.image(banner_path, use_column_width=True)
+        st.image(banner_path, use_container_width=True)
 
     # Search input
-    st.markdown("### Search for stock name")
-    query = st.text_input("Search for stock name", key="search_box")
+    st.markdown("### Stock Analysis for a Company")
+    query = st.text_input("Enter Company Name", key="search_box")
 
     results = []
     if len(query) >= 3:
@@ -78,4 +78,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

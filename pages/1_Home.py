@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 import os
 from difflib import SequenceMatcher
+from get_ticker import get_ticker_fuzzy_streamlit   
 
 # Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -18,53 +19,6 @@ except ImportError as e:
 # Configure page
 setup_page_config()
 
-def similarity(a, b):
-    """Calculate similarity between two strings"""
-    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
-
-def get_ticker_fuzzy(company_name):
-    """
-    Fuzzy search for company tickers
-    Returns top 5 matches based on similarity
-    """
-    if len(company_name) < 3:
-        return []
-    
-    ticker = []
-    n = 5
-    search_name = "%" + company_name + "%"
-    
-    try:
-        # Fuzzy search using case-insensitive partial match
-        value = supabase_anon.table("Company_ticker_all").select("*").ilike("name", search_name).execute()
-        
-        if not value.data:
-            return []
-        
-        # Sort results by string similarity
-        sorted_matches = sorted(
-            value.data,
-            key=lambda row: similarity(company_name, row["name"]),
-            reverse=True
-        )
-        
-        # Get top n matches
-        top_matches = sorted_matches[:n]
-        
-        for row in top_matches:
-            ticker.append({
-                'cik': row['cik'],
-                'ticker': row['ticker'], 
-                'exchange': row['exchange'],
-                'name': row['name'],
-                'display': f"{row['ticker']} - {row['name']} ({row['exchange']})"
-            })
-        
-        return ticker
-        
-    except Exception as e:
-        st.error(f"Search error: {e}")
-        return []
 
 # Check environment variables
 env_check = check_environment_variables()
@@ -112,7 +66,7 @@ def main():
         st.session_state.search_query = search_input
         if len(search_input) >= 3:
             with st.spinner("Searching..."):
-                st.session_state.search_results = get_ticker_fuzzy(search_input)
+                st.session_state.search_results = get_ticker_fuzzy_streamlit(search_input)
         else:
             st.session_state.search_results = []
         st.session_state.selected_stock = None
@@ -166,7 +120,7 @@ def main():
         # Action buttons
         st.markdown("### 🛠️ Quick Actions")
         
-        col1, col2, col3 = st.columns(3)
+        col1, col2, col3, col4 = st.columns(4)
         
         with col1:
             if st.button("📈 View Analytics", type="primary"):
@@ -179,6 +133,11 @@ def main():
         with col3:
             if st.button("📋 Add to Watchlist"):
                 st.success(f"Added {stock['ticker']} to your watchlist!")
+        
+        with col4:
+            if st.button("📰 News Analyzer"):
+                st.success("Redirecting to News Analyzer...")
+                st.switch_page("pages/2_News_Analyzer.py")
     
     elif len(st.session_state.search_query) >= 3 and not st.session_state.search_results:
         st.warning(f"No results found for '{st.session_state.search_query}'. Try a different search term.")
@@ -206,6 +165,7 @@ def main():
         - Historical analysis
         - Interactive charts
         - Portfolio tracking
+        - AI-powered news analysis
         
         **🚀 Popular Searches:**
         """)
@@ -219,6 +179,13 @@ def main():
                 if st.button(f"🔍 {stock}", key=f"popular_{stock}"):
                     st.session_state.search_query = stock
                     st.rerun()
+        
+        # News Analyzer button
+        st.markdown("---")
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            if st.button("📰 News Analyzer", type="secondary", key="welcome_news_analyzer"):
+                st.switch_page("pages/2_News_Analyzer.py")
 
 if __name__ == "__main__":
     main()
